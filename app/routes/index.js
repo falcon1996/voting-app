@@ -33,6 +33,9 @@ module.exports = function(app, passport){
     
     
     
+    
+    
+    
     // we will call this to start the GitHub Login process
     app.get('/auth/github',passport.authenticate('github'));
     

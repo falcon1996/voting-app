@@ -1,15 +1,63 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">PollSter</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form action="/auth/github" method="GET" class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <button type="submit" class="btn btn-link" >Sign in</button>
+            </div>
+            <!--<button type="submit" action = "/logout" class="btn btn-link" >Log out</button>-->
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
 
-<html>
     
-    <head> </head>
-    <body>
-        
-        <ul>
-            <li><a href='/auth/github'>GitHub</a></li>
-            <li><a href='/logout'>logout</a></li>
-            
-        </ul>
-    </body>
-    
+
+<div class="container">
+  <div class="jumbotron">
+      
+    <h1>PollSter</h1>
+    <p>Create Custom Polls with Live Results!</p> 
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Live Results</h3>
+      <p>Live graph shows your poll results immediately in an easy to understand format.</p>
+      <p>One graph will not provide whole picture thats why we provide multiple graph types.</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Works Everywhere</h3>
+      <p>This polling app works on tablets, smart-phones, noteboks and net books along with traditional desktops.</p>
+      <p>Our responsive designs take care of that.</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Social Integration</h3>        
+      <p>Easy to integrate with social sites such as Github.</p>
+      <p>Sharing is also made easier.</p>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>
