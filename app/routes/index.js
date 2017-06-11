@@ -32,7 +32,15 @@ module.exports = function(app, passport){
         });
     
     
+    app.route('/login')
+        .get(function(req,res){
+            res.sendFile(path+ '/public/login.html');
+        });
     
+    app.get('/edit', function(req,res){
+        
+       res.render('edit-form') 
+    });
     
     
     
@@ -42,7 +50,7 @@ module.exports = function(app, passport){
     // GitHub will call this URL
     app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }),
       function(req, res) {
-        res.redirect('/');
+        res.redirect('/login');
       }
     );
     
