@@ -42,6 +42,11 @@ module.exports = function(app, passport){
        res.render('edit-form') 
     });
     
+    app.route('/success')
+        .get(function(req,res){
+            //res.sendFile(path+ '/public/success.html');
+            res.render('some-file', { name: req.body.name });
+        });
     
     
     // we will call this to start the GitHub Login process

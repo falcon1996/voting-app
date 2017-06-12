@@ -11,9 +11,18 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   
   <script>
+    var count = 2;
     function AddOption() {
-        var container = $('#optionsContainer');;
-        container.append('<input class="form-control" id="addOptionInput" placeholder="Enter option">');
+        
+        if(count<5){
+          var container = $('#optionsContainer');;
+          container.append('<input class="form-control" id="addOptionInput" placeholder="Enter option">');
+          count++;
+        }
+        else{
+          alert('Sorry, Only 5 options are allowed!');
+        }
+        
     }
 </script>
   
@@ -49,7 +58,15 @@
     <div class = "content" pull-right="pull-right control-group">
   
       <button class="btn btn-info" id="btadd" name="0" onclick="AddOption()">Add Option</button>
-      <button class="btn btn-success" onclick="submitNewPoll()">Submit <i class="ion-checkmark-round"></i></button>
+      
+      <form action="/success" method="GET" class="navbar-form" role="form">
+        <div class="form-group">
+          <button type="submit" class="btn btn-success" >Submit It!</button>
+        </div>
+      </form>
+      
+      
+      
     </div>
     
 </div>

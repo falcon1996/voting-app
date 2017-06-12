@@ -5,6 +5,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var jade = require('jade');
 var $ = require("jquery");
 
 var routes = require('./app/routes/index.js');
