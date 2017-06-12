@@ -8,10 +8,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  
+  <script>
+    function AddOption() {
+        var container = $('#optionsContainer');;
+        container.append('<input class="form-control" id="addOptionInput" placeholder="Enter option">');
+    }
+</script>
+  
+  
 </head>
+
 <body>
 
-    
 
 <div class="container">
   <div class="jumbotron">
@@ -24,23 +34,26 @@
     <button type="button" class="btn btn-danger">Logout</button>
   </div>
          
-    <div class="form-group new poll">
+    <div class= "col-xs-4" id="optionsContainer">           <!-- form-group new poll -->
         <label for="pwd">Poll Title</label>
         <input class="form-control fc-newpoll-title" id="newPollTitle" maxlength="25" type="text" placeholder="Title of New Poll">
         <br>
         <br>
         <label for="pwd">Options</label>
+        
         <input class="form-control fc-newpoll-option" id="option1" maxlength="18" type="text" placeholder="Option 1">
         <input class="form-control fc-newpoll-option" id="option2" maxlength="18" type="text" placeholder="Option 2">
+        
     </div>
     
-    <button class="btn btn-info" id="addbutton" name="0" onclick="addFieldToNewPoll()">Add Option <i class="ion-plus-round"></i></button>
-    <button class="btn btn-success" onclick="submitNewPoll()">Submit <i class="ion-checkmark-round"></i></button>
-    
+    <div class = "content" pull-right="pull-right control-group">
+  
+      <button class="btn btn-info" id="btadd" name="0" onclick="AddOption()">Add Option</button>
+      <button class="btn btn-success" onclick="submitNewPoll()">Submit <i class="ion-checkmark-round"></i></button>
+    </div>
     
 </div>
 
-<script type="text/javascript" src="controllers/profileController.client.js"></script>
 
 </body>
 </html>
