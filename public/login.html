@@ -16,7 +16,7 @@
         
         if(count<5){
           var container = $('#optionsContainer');;
-          container.append('<input class="form-control" id="addOptionInput" placeholder="Enter option">');
+          container.append('<input class="form-control" name="input"+String(count+1) placeholder="Enter option">');
           count++;
         }
         else{
@@ -42,32 +42,23 @@
     <button type="button" class="btn btn-primary">My Polls</button>
     <button type="button" class="btn btn-danger">Logout</button>
   </div>
+        
          
-    <div class= "col-xs-4" id="optionsContainer">           <!-- form-group new poll -->
-        <label for="pwd">Poll Title</label>
-        <input class="form-control fc-newpoll-title" id="newPollTitle" maxlength="25" type="text" placeholder="Title of New Poll">
+    <form action="/new" method="POST" id="optionsContainer">     
+        
+        <button type="submit" class="btn btn-success" >Submit It!</button><br><br>
+        <label for="title">Poll Title</label>
+        <input class="form-control fc-newpoll-title" name="polltitle" maxlength="25" type="text" placeholder="Title of New Poll">
         <br>
         <br>
-        <label for="pwd">Options</label>
+        <label for="options">Options</label>
         
-        <input class="form-control fc-newpoll-option" id="option1" maxlength="18" type="text" placeholder="Option 1">
-        <input class="form-control fc-newpoll-option" id="option2" maxlength="18" type="text" placeholder="Option 2">
+        <input class="form-control fc-newpoll-option" name="input1" maxlength="18" type="text" placeholder="Option 1">
+        <input class="form-control fc-newpoll-option" name="input2" maxlength="18" type="text" placeholder="Option 2">
         
-    </div>
+    </form>
     
-    <div class = "content" pull-right="pull-right control-group">
-  
-      <button class="btn btn-info" id="btadd" name="0" onclick="AddOption()">Add Option</button>
-      
-      <form action="/success" method="GET" class="navbar-form" role="form">
-        <div class="form-group">
-          <button type="submit" class="btn btn-success" >Submit It!</button>
-        </div>
-      </form>
-      
-      
-      
-    </div>
+    <button class="btn btn-info" id="btadd" name="0" onclick="AddOption()">Add Option</button>
     
 </div>
 

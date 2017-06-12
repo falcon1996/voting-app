@@ -1,6 +1,8 @@
 'use strict';
-
+var util=require('util');
+var querystring=require('querystring');
 var path = process.cwd();
+var user = require('../models/users.js');
 
 module.exports = function(app, passport){
     
@@ -39,14 +41,31 @@ module.exports = function(app, passport){
     
     app.get('/edit', function(req,res){
         
-       res.render('edit-form') 
+       res.render('edit-form');
     });
     
-    app.route('/success')
-        .get(function(req,res){
-            //res.sendFile(path+ '/public/success.html');
-            res.render('some-file', { name: req.body.name });
+    
+    
+    app.post('/new',function(req,res){
+        //res.sendFile(path+ '/public/success.html');
+        //res.render('some-file', { name: req.body.name });
+        
+        new user({
+            
+            question : req.body.polltitle,
+            option1 : req.body.input1,
+            option2 : req.body.input2,
+            option3 : req.body.input3,
+            option4 : req.body.input4,
+            option5 : req.body.input5
+        }).save(function(err,document){
+            
+            if(err) res.json(err);
+            
+            else res.send('Successfully Inserted!');
         });
+        
+    });
     
     
     // we will call this to start the GitHub Login process
