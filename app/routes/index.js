@@ -3,6 +3,7 @@ var util=require('util');
 var querystring=require('querystring');
 var path = process.cwd();
 var user = require('../models/users.js');
+var vote = require('../models/users.js');
 
 module.exports = function(app, passport){
     app.set('view engine', 'jade');
@@ -102,6 +103,10 @@ module.exports = function(app, passport){
         });
         
     });
+    
+    
+    
+    
     
     
     

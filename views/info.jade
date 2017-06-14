@@ -44,7 +44,7 @@ html( lang="en" )
         
         .jumbotron
             h1 My Polls My Results!
-            p These are recent the polls published by you!
+            p These are all the recent polls published by you!
             
             
         .list-group
@@ -52,5 +52,3 @@ html( lang="en" )
             each user in users
                 a.list-group-item.active( href='/user/#{user.question}' )
                     h4.list-group-item-heading #{user.question}
-            
-            

@@ -1,11 +1,46 @@
-<h1>#{user.question}</h1>
-ul
-    li Option 1: #{user.option1}
-    li Option 2: #{user.option2}
-    li Option 3: #{user.option3}
-    li Option 4: #{user.option4}
-    li Option 5: #{user.option5}
-ul
-    li 
-        a(href="/user/#{user.question}/delete")
-            button(type="button") Delete
+doctype
+html( lang="en" )
+    head
+        title Baking Bootstrap Snippets with Jade
+        meta( charset='utf-8' )
+        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
+        //- Bootswatch Theme
+        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+ 
+    body(style="padding-bottom:10rem;")
+        .container
+ 
+        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+        
+        p(style='white-space:pre;')
+        ul.list-group
+            li.list-group-item.active Question : #{user.question}
+                
+        .list-group
+        .col-xs-6
+            
+            a.list-group-item.active( href="#" )
+                h4.list-group-item-heading Option 1: #{user.option1}
+            
+                
+            a.list-group-item( href="#" )
+                h4.list-group-item-heading Option 2: #{user.option2}
+                
+                
+            a.list-group-item( href="#" )
+                h4.list-group-item-heading Option 3: #{user.option3}
+                
+                
+            a.list-group-item( href="#" )
+                h4.list-group-item-heading Option 4: #{user.option4}
+                
+                
+            a.list-group-item( href="#" )
+                h4.list-group-item-heading Option 5: #{user.option5}
+                
+                
+            p(style='white-space:pre;')   
+            a.btn.btn-danger( href="/user/#{user.question}/delete" ) Delete
