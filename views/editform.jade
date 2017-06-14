@@ -1,0 +1,4 @@
+form(method="POST", action="/user/#{user.question}")
+    input(type="hidden", name="_method", value="PUT")
+    p Question
+        input(type="text", name="polltitle")

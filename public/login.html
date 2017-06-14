@@ -8,23 +8,48 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   
-  <script>
-    var count = 2;
-    function AddOption() {
+  
+  <script type="text/javascript">
+    
+    $(function(){
+      var i =  $("#textboxdiv p").length + 1;
+      
+      $("#Add").on("click",function(){
         
-        if(count<5){
-          var container = $('#optionsContainer');;
-          container.append('<input class="form-control" name="input"+String(count+1) placeholder="Enter option">');
-          count++;
+        if(i<6){
+          var inputElem="";
+          inputElem += ('<p><input class="form-control fc-newpoll-title" name=name="input'+ i +'" maxlength="18" type="text" placeholder="Enter option"/></p>');
+          
+          $("#textboxdiv").append($(inputElem));
+          
+          i++;
+          
+          return false;
         }
         else{
-          alert('Sorry, Only 5 options are allowed!');
+          alert('Sorry, Maximum 5 options are allowed!');
         }
+      });
+      
+      $("#Remove").on("click",function(){
         
-    }
-</script>
+        if(i>3){
+          $("#textboxdiv").children().last().remove();
+          i--;
+          
+          return false;
+        }
+        else{
+          alert('Sorry, Minimum 2 options are required!');
+        }
+      });
+      
+      
+    });
+    
+    
+  </script>
   
   
 </head>
@@ -43,24 +68,31 @@
     <button type="button" class="btn btn-danger">Logout</button>
   </div>
         
-         
     <form action="/new" method="POST" id="optionsContainer">     
         
-        <button type="submit" class="btn btn-success" >Submit It!</button><br><br>
+        
+        
         <label for="title">Poll Title</label>
-        <input class="form-control fc-newpoll-title" name="polltitle" maxlength="25" type="text" placeholder="Title of New Poll">
+        <input class="form-control fc-newpoll-title" name="polltitle" maxlength="25" type="text" placeholder="Title of New Poll"/>
         <br>
         <br>
         <label for="options">Options</label>
         
-        <input class="form-control fc-newpoll-option" name="input1" maxlength="18" type="text" placeholder="Option 1">
-        <input class="form-control fc-newpoll-option" name="input2" maxlength="18" type="text" placeholder="Option 2">
+        <div id="textboxdiv">
+          <p>
+            <input class="form-control fc-newpoll-option" name="input1" maxlength="18" type="text" placeholder="Option 1"/>
+            
+          </p>
+        </div>
         
+        <button type="submit" class="btn btn-success" >Submit It!</button><br><br>
     </form>
-    
-    <button class="btn btn-info" id="btadd" name="0" onclick="AddOption()">Add Option</button>
+   
     
 </div>
+
+<button class="btn btn-info button-add" id="Add">Add Option</button>
+<button class="btn btn-danger button-remove" id="Remove">Remove Option</button>
 
 
 </body>

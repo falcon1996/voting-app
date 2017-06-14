@@ -8,7 +8,8 @@ var passport = require('passport');
 var jade = require('jade');
 var $ = require("jquery");
 var path = require('path');
-//var methodOverride = require('method-override')
+var cors = require('cors');
+
 
 var routes = require('./app/routes/index.js');
 
@@ -22,7 +23,7 @@ mongoose.Promise = global.Promise;
 
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(express.methodOverride());
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/public',express.static(__dirname + '/public'));
 

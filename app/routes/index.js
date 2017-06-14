@@ -5,6 +5,7 @@ var path = process.cwd();
 var user = require('../models/users.js');
 
 module.exports = function(app, passport){
+    app.set('view engine', 'jade');
     
     function isLoggedIn(req,res,next){
         
@@ -39,9 +40,44 @@ module.exports = function(app, passport){
             res.sendFile(path+ '/public/login.html');
         });
     
-    app.get('/edit', function(req,res){
+    app.get('/view', function(req,res){
         
-       res.render('edit-form');
+       user.find({}, function(err,docs){
+           
+           if(err) res.json(err);
+           
+           else res.render("../views/info.jade", {users:docs});
+           
+       });
+    });
+    
+    
+    /*app.get('/user/:topic/edit', function(req, res){
+        
+        res.render('../views/editform.jade', {user:req.});
+    });*/
+    
+    app.get('/user/:topic/delete',function(req,res){
+        
+        user.remove({question : req.params.topic},function(err){
+            
+            if(err) res.json(err);
+            
+            else res.redirect('/view');
+            
+        });
+    });
+    
+    
+    
+    app.get('/user/:topic', function(req, res){
+        
+        user.find({question : req.params.topic},function(err, docs){
+            if(err) res.json(err);
+            
+            else res.render("../views/show.jade", {user:docs[0]});  //passing results to a variable called user
+        });
+        
     });
     
     
@@ -62,10 +98,11 @@ module.exports = function(app, passport){
             
             if(err) res.json(err);
             
-            else res.send('Successfully Inserted!');
+            else res.redirect('/view');
         });
         
     });
+    
     
     
     // we will call this to start the GitHub Login process

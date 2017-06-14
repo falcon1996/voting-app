@@ -1,0 +1,11 @@
+<h1>#{user.question}</h1>
+ul
+    li Option 1: #{user.option1}
+    li Option 2: #{user.option2}
+    li Option 3: #{user.option3}
+    li Option 4: #{user.option4}
+    li Option 5: #{user.option5}
+ul
+    li 
+        a(href="/user/#{user.question}/delete")
+            button(type="button") Delete
