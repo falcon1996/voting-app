@@ -82,11 +82,37 @@ module.exports = function(app, passport){
     
     app.route('/option')
         .get(function(req, res){
-            console.log('Working');
+            
             var ques = req.query.q;
             var choice = req.query.opt
             console.log(ques, choice);
-            res.redirect('/view');
+            
+        /*    vote.findOne({question:ques},function(err,doc){
+                
+                if(choice == "option1"){
+                    vote.option1.$inc();
+                    vote.save();
+                }
+                else if(choice == "option2"){
+                    vote.option2.$inc();
+                    vote.save();
+                }
+                else if(choice == "option3"){
+                    vote.option3.$inc();
+                    vote.save();
+                }
+                else if(choice == "option4"){
+                    vote.option4.$inc();
+                    vote.save();
+                }
+                else if(choice == "option5"){
+                    vote.option5.$inc();
+                    vote.save();
+                }*/
+                
+                res.render("../views/chart.jade")//, {votes:doc[0]});
+           // });
+            
         });
     
     
@@ -95,7 +121,7 @@ module.exports = function(app, passport){
     
     app.post('/new',function(req,res){
         
-    /*    new vote({
+        /*new vote({
             
             question : req.body.polltitle,
             option1 : 0,
