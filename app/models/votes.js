@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var Vote = new Schema({
 	
+	question: String,
 	option1: Number,
 	option2: Number,
     option3: Number,

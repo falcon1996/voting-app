@@ -9,6 +9,8 @@ var jade = require('jade');
 var $ = require("jquery");
 var path = require('path');
 var cors = require('cors');
+var server = require('http').createServer();
+var io = require('socket.io')(server);
 
 
 var routes = require('./app/routes/index.js');
@@ -22,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
 
 app.set('view engine', 'jade');
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/public',express.static(__dirname + '/public'));

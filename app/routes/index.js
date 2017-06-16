@@ -1,12 +1,15 @@
 'use strict';
 var util=require('util');
 var querystring=require('querystring');
+var bodyParser = require('body-parser');
 var path = process.cwd();
 var user = require('../models/users.js');
-var vote = require('../models/users.js');
+var vote = require('../models/votes.js');
+
 
 module.exports = function(app, passport){
     app.set('view engine', 'jade');
+    app.use(bodyParser.urlencoded({ extended: false })); 
     
     function isLoggedIn(req,res,next){
         
@@ -41,22 +44,18 @@ module.exports = function(app, passport){
             res.sendFile(path+ '/public/login.html');
         });
     
+    
     app.get('/view', function(req,res){
         
        user.find({}, function(err,docs){
            
            if(err) res.json(err);
            
-           else res.render("../views/info.jade", {users:docs});
+           else res.render("../views/info.jade", {users:docs});     //results are stored in users
            
        });
     });
     
-    
-    /*app.get('/user/:topic/edit', function(req, res){
-        
-        res.render('../views/editform.jade', {user:req.});
-    });*/
     
     app.get('/user/:topic/delete',function(req,res){
         
@@ -70,7 +69,6 @@ module.exports = function(app, passport){
     });
     
     
-    
     app.get('/user/:topic', function(req, res){
         
         user.find({question : req.params.topic},function(err, docs){
@@ -82,10 +80,34 @@ module.exports = function(app, passport){
     });
     
     
+    app.route('/option')
+        .get(function(req, res){
+            console.log('Working');
+            var ques = req.query.q;
+            var choice = req.query.opt
+            console.log(ques, choice);
+            res.redirect('/view');
+        });
+    
+    
+    
+    
     
     app.post('/new',function(req,res){
-        //res.sendFile(path+ '/public/success.html');
-        //res.render('some-file', { name: req.body.name });
+        
+    /*    new vote({
+            
+            question : req.body.polltitle,
+            option1 : 0,
+        	option2 : 0,
+            option3 : 0,
+        	option4 : 0,
+        	option5 : 0
+        }).save(function(err,doc){
+            
+            if(err) res.json(err);
+        });*/
+        
         
         new user({
             
@@ -103,8 +125,6 @@ module.exports = function(app, passport){
         });
         
     });
-    
-    
     
     
     
