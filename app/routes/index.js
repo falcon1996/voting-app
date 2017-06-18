@@ -4,7 +4,6 @@ var querystring=require('querystring');
 var bodyParser = require('body-parser');
 var path = process.cwd();
 var user = require('../models/users.js');
-var vote = require('../models/votes.js');
 
 
 module.exports = function(app, passport){
@@ -74,66 +73,80 @@ module.exports = function(app, passport){
         user.find({question : req.params.topic},function(err, docs){
             if(err) res.json(err);
             
+            
             else res.render("../views/show.jade", {user:docs[0]});  //passing results to a variable called user
         });
         
     });
     
     
+    
     app.route('/option')
         .get(function(req, res){
             
             var ques = req.query.q;
-            var choice = req.query.opt
-            console.log(ques, choice);
+            var off = req.query.offs;
+            console.log(ques, off);
             
-        /*    vote.findOne({question:ques},function(err,doc){
-                
-                if(choice == "option1"){
-                    vote.option1.$inc();
-                    vote.save();
-                }
-                else if(choice == "option2"){
-                    vote.option2.$inc();
-                    vote.save();
-                }
-                else if(choice == "option3"){
-                    vote.option3.$inc();
-                    vote.save();
-                }
-                else if(choice == "option4"){
-                    vote.option4.$inc();
-                    vote.save();
-                }
-                else if(choice == "option5"){
-                    vote.option5.$inc();
-                    vote.save();
-                }*/
-                
-                res.render("../views/chart.jade")//, {votes:doc[0]});
-           // });
+            if(off == 1){
+                user.findOneAndUpdate({question:ques}, {$inc: {vote1 : 1}}, {new: true}, function(err,doc){
+                   if(err) console.log('Error! while updating');
+                   
+                   else{
+                       console.log('Updating successful!');
+                       console.log(doc);
+                       res.render("../views/chart.jade", {votes:doc});
+                   } 
+                });
+            }
+            if(off == 2){
+                user.findOneAndUpdate({question:ques}, {$inc: {vote2 : 1}}, {new: true}, function(err,doc){
+                   if(err) console.log('Error! while updating');
+                   
+                   else{
+                       console.log('Updating successful!');
+                       res.render("../views/chart.jade", {votes:doc[0]});
+                   }
+                });
+            }
+            if(off == 3){
+                user.findOneAndUpdate({question:ques}, {$inc: {vote3 : 1}}, {new: true}, function(err,doc){
+                   if(err) console.log('Error! while updating');
+                   
+                   else{
+                       console.log('Updating successful!');
+                       res.render("../views/chart.jade", {votes:doc[0]});
+                   }
+                });
+            }
+            if(off == 4){
+                user.findOneAndUpdate({question:ques}, {$inc: {vote4 : 1}}, {new: true}, function(err,doc){
+                   if(err) console.log('Error! while updating');
+                   
+                   else{
+                       console.log('Updating successful!');
+                       res.render("../views/chart.jade", {votes:doc[0]});
+                   }
+                });
+            }
+            if(off == 5){
+                user.findOneAndUpdate({question:ques}, {$inc: {vote5 : 1}}, {new: true}, function(err,doc){
+                   if(err) console.log('Error! while updating');
+                   
+                   else{
+                       console.log('Updating successful!');
+                       res.render("../views/chart.jade", {votes:doc[0]});
+                   }
+                });
+            }
+            
             
         });
     
     
     
     
-    
     app.post('/new',function(req,res){
-        
-        /*new vote({
-            
-            question : req.body.polltitle,
-            option1 : 0,
-        	option2 : 0,
-            option3 : 0,
-        	option4 : 0,
-        	option5 : 0
-        }).save(function(err,doc){
-            
-            if(err) res.json(err);
-        });*/
-        
         
         new user({
             
@@ -142,7 +155,8 @@ module.exports = function(app, passport){
             option2 : req.body.input2,
             option3 : req.body.input3,
             option4 : req.body.input4,
-            option5 : req.body.input5
+            option5 : req.body.input5,
+            
         }).save(function(err,document){
             
             if(err) res.json(err);
@@ -165,7 +179,5 @@ module.exports = function(app, passport){
         res.redirect('/login');
       }
     );
-    
-    
     
 };
