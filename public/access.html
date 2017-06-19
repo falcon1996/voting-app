@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PollSter</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  
+  <script>
+      var socket = io.connect('https://voting-app-dhruvparashar.c9users.io');
+      socket.on('news', function (data) {
+          console.log(data);
+          //alert(data);
+      });
+      socket.emit('my other event', { msg: 'client emit' });
+  </script>
+  
+</head>
+<body background="./public/bg.jpg">
+    
+    <div class="col-xs-4 col-xs-offset-2">
+
+      <form action="/inputauth" method="POST" id="optionsContainer" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">UserName</label>
+        <input type="text" name="username" class="form-control" placeholder="UserName" required autofocus>
+        
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" class="form-control" placeholder="Password" required><br><br>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+      </form>
+
+    </div> <!-- /container -->
+    
+    
+</body>
+</html>

@@ -4,11 +4,16 @@ var querystring=require('querystring');
 var bodyParser = require('body-parser');
 var path = process.cwd();
 var user = require('../models/users.js');
+var data = require('../models/manual.js');
+
 
 
 module.exports = function(app, passport){
     app.set('view engine', 'jade');
     app.use(bodyParser.urlencoded({ extended: false })); 
+    
+    var http = require('http').createServer(app);
+    var io = require('socket.io')(http);
     
     function isLoggedIn(req,res,next){
         
@@ -29,6 +34,29 @@ module.exports = function(app, passport){
 		});
 		
 		
+    app.route('/signin')                                        
+        .get(function(req,res){
+            res.sendFile(path+ '/public/signin.html');
+        });
+        
+        
+    app.route('/access')                                        
+        .get(function(req,res){
+            res.sendFile(path+ '/public/access.html');
+        });
+    
+    
+    app.route('/mypolls')                                        //new
+        .get(function(req,res){
+            
+            user.find({ip:req.headers['x-forwarded-for']}, function(err,docs){
+               if(err) res.json(err);
+               
+               else res.render("../views/mypolls.jade", {users:docs});     //results are stored in users
+           });
+            
+        });
+    
     
     app.route('/logout')
         .get(function(req, res){
@@ -58,11 +86,23 @@ module.exports = function(app, passport){
     
     app.get('/user/:topic/delete',function(req,res){
         
-        user.remove({question : req.params.topic},function(err){
+        user.find({ip:req.headers['x-forwarded-for']}, function(err,doc){
             
-            if(err) res.json(err);
+            if(doc[0].question == req.params.topic){
+                
+                user.remove({question : req.params.topic},function(err){
             
-            else res.redirect('/view');
+                    if(err) res.json(err);
+                    
+                    else res.redirect('/view');
+                });
+            }
+            
+            else{
+                
+                console.log('You are not authorized to delete this poll!');
+                console.log(doc);
+            } 
             
         });
     });
@@ -105,7 +145,7 @@ module.exports = function(app, passport){
                    
                    else{
                        console.log('Updating successful!');
-                       res.render("../views/chart.jade", {votes:doc[0]});
+                       res.render("../views/chart.jade", {votes:doc});
                    }
                 });
             }
@@ -115,7 +155,7 @@ module.exports = function(app, passport){
                    
                    else{
                        console.log('Updating successful!');
-                       res.render("../views/chart.jade", {votes:doc[0]});
+                       res.render("../views/chart.jade", {votes:doc});
                    }
                 });
             }
@@ -125,7 +165,7 @@ module.exports = function(app, passport){
                    
                    else{
                        console.log('Updating successful!');
-                       res.render("../views/chart.jade", {votes:doc[0]});
+                       res.render("../views/chart.jade", {votes:doc});
                    }
                 });
             }
@@ -135,7 +175,7 @@ module.exports = function(app, passport){
                    
                    else{
                        console.log('Updating successful!');
-                       res.render("../views/chart.jade", {votes:doc[0]});
+                       res.render("../views/chart.jade", {votes:doc});
                    }
                 });
             }
@@ -150,6 +190,7 @@ module.exports = function(app, passport){
         
         new user({
             
+            ip : req.headers['x-forwarded-for'],
             question : req.body.polltitle,
             option1 : req.body.input1,
             option2 : req.body.input2,
@@ -166,8 +207,58 @@ module.exports = function(app, passport){
         
     });
     
+    app.post('/data', function(req,res){
+        
+       data.find({myname:req.body.username},function(err,doc){
+           
+           if(err) res.json(err);
+           
+           else if(doc.length == 0){
+               
+               new data({
+                   
+                   ip : req.headers['x-forwarded-for'],
+                   myname : req.body.username,
+                   password : req.body.inputPassword
+                   
+               }).save(function(err,document){
+                   
+                   if(err) res.json(err);
+                   
+                   else{
+                       console.log(document);
+                       res.redirect('/login');
+                   }
+               });
+           }
+        
+        else{
+            
+            console.log('Username already exists!');
+            
+            io.on('connection', function (socket){
+                
+                //socket.emit('news', {hello :'world!'});
+                //socket.on('my other event', function (data) {
+                    console.log('connected!!');
+                //});
+
+            });
+        }    
+       });
+    });
     
     
+    
+    app.post('/inputauth',function(req, res){
+        data.find({myname:req.body.username, password : req.body.inputPassword, ip : req.headers['x-forwarded-for']},function(err,doc){
+                
+            if(err) res.json(err);
+                
+            console.log('Successful login!!')
+            res.redirect('/login')
+        });
+    });
     
     
     // we will call this to start the GitHub Login process
