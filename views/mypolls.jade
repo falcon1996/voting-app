@@ -26,20 +26,10 @@ html( lang="en" )
          
             #navbar-inverse.collapse.navbar-collapse
                 ul.nav.navbar-nav
-                    li.active: a( href="#") Home
-                    li: a( href="#about" ) About
+                    li.active: a( href="/login") Home
+                    li: a( href="#/about" ) About
                     li: a( href="#contact" ) Contact
-                    li.dropdown
-                        a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) Dropdown 
-                            span.caret
-                        ul.dropdown-menu( role="menu" )
-                            li: a( href="#" ) Action
-                            li: a( href="#" ) Another action
-                            li: a( href="#" ) Something else here
-                            li.divider
-                            li.dropdown-header Nav header
-                            li: a( href="#" ) Separated link
-                            li: a( href="#" ) One more separated link
+                    
                             
         
         .jumbotron
@@ -52,6 +42,3 @@ html( lang="en" )
             each user in users
                 a.list-group-item.active( href='/mypolls/#{user.question}' )
                     h4.list-group-item-heading #{user.question}
-                
-                p(style='white-space:pre;')   
-                a.btn.btn-danger( href="/user/#{user.question}/delete" ) Delete

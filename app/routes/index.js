@@ -88,21 +88,23 @@ module.exports = function(app, passport){
         
         user.find({ip:req.headers['x-forwarded-for']}, function(err,doc){
             
-            if(doc[0].question == req.params.topic){
+            doc.forEach(function(entry){
                 
-                user.remove({question : req.params.topic},function(err){
-            
-                    if(err) res.json(err);
-                    
-                    else res.redirect('/mypolls');
-                });
-            }
-            
-            else{
+                if(entry.question == req.params.topic){
                 
-                console.log('You are not authorized to delete this poll!');
-                console.log(doc);
-            } 
+                    user.remove({question : req.params.topic},function(err){
+                
+                        if(err) res.json(err);
+                        
+                        else res.redirect('/mypolls');
+                    });
+                }
+                
+            });
+            
+            console.log('You are not Authorized to delete this poll!');
+            console.log(doc);
+            
             
         });
     });
