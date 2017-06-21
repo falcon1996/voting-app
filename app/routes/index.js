@@ -94,7 +94,7 @@ module.exports = function(app, passport){
             
                     if(err) res.json(err);
                     
-                    else res.redirect('/view');
+                    else res.redirect('/mypolls');
                 });
             }
             
@@ -115,6 +115,18 @@ module.exports = function(app, passport){
             
             
             else res.render("../views/show.jade", {user:docs[0]});  //passing results to a variable called user
+        });
+        
+    });
+    
+    
+    app.get('/mypolls/:topic', function(req, res){
+        
+        user.find({question : req.params.topic},function(err, docs){
+            if(err) res.json(err);
+            
+            
+            else res.render("../views/myresults.jade", {user:docs[0]});  //passing results to a variable called user
         });
         
     });

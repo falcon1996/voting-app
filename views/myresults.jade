@@ -40,3 +40,7 @@ html( lang="en" )
                 
             a.list-group-item.active( href="/option?q="+locals.user.question+"&offs=5" )
                 h4.list-group-item-heading Option 5: #{user.option5}
+                
+                
+            p(style='white-space:pre;')   
+            a.btn.btn-danger( href="/user/#{user.question}/delete" ) Delete

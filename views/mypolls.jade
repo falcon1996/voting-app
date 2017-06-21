@@ -50,5 +50,8 @@ html( lang="en" )
         .list-group
         .col-xs-6
             each user in users
-                a.list-group-item.active( href='/user/#{user.question}' )
+                a.list-group-item.active( href='/mypolls/#{user.question}' )
                     h4.list-group-item-heading #{user.question}
+                
+                p(style='white-space:pre;')   
+                a.btn.btn-danger( href="/user/#{user.question}/delete" ) Delete
